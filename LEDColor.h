@@ -96,6 +96,7 @@ namespace LEDColor{
 	}
 
 	void LED::triColor(Color *colorOne,Color *colorTwo,Color *colorThree,int speed_val){
+		static int wait = 0;
 		static int count = 0;
 		switch(count){
 			case 0:
@@ -111,11 +112,16 @@ namespace LEDColor{
 				count=0;
 				break;
 		}
-		count = (count+1)%3;
-		delay(speed_val*100);
+		if(wait>=100){
+			wait=0;
+			count = (count+1)%3;
+		}
+		wait++;
+		delay(speed_val);
 	}
 
 	void LED::dualColor(Color *colorOne,Color *colorTwo,int speed_val){
+		static int wait = 0;
 		static int count = 0;
 		switch(count){
 			case 0:
@@ -128,8 +134,12 @@ namespace LEDColor{
 				count=0;
 				break;
 		}
-		count = (count+1)%2;
-		delay(speed_val*100);
+		if(wait>=100){
+			wait=0;
+			count = (count+1)%2;
+		}
+		wait++;
+		delay(speed_val);
 	}
 
 }
